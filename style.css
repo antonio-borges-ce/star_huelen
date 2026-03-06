@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars Intro</title>
+    <title>Star Wars Intro - Versão Final</title>
     <style>
         /* RESET GERAL */
         * {
@@ -22,16 +22,15 @@
             width: 100vw;
         }
 
-        /* MÁSCARA DE SUMIÇO (HORIZONTE) */
-        /* Cria o efeito do texto "evaporando" no topo antes de tocar na borda */
+        /* MÁSCARA DE SUMIÇO NO HORIZONTE */
         body::before {
             content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 40%; 
-            background: linear-gradient(to bottom, black 25%, transparent 100%);
+            height: 45%; 
+            background: linear-gradient(to bottom, black 30%, transparent 100%);
             z-index: 10;
             pointer-events: none;
         }
@@ -41,7 +40,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            perspective: 300px; /* Profundidade acentuada para telas de notebook */
+            perspective: 300px;
             perspective-origin: 50% 100%;
         }
 
@@ -49,49 +48,68 @@
         .credits {
             position: absolute;
             top: 100%;
-            width: 90%; /* Padrão mobile */
+            width: 90%;
             left: 5%;
             max-width: 1100px;
             text-align: justify;
-            /* VELOCIDADE: 160s para leitura lenta e confortável */
-            animation: crawl 160 linear infinite;
-            text-shadow: 0 0 8px rgba(255, 217, 0, 0.4); 
+            /* VELOCIDADE PADRÃO (Notebook/Desktop) */
+            animation: crawl 160s linear infinite;
+            text-shadow: 0 0 10px rgba(255, 217, 0, 0.4); 
         }
 
-        /* CONFIGURAÇÃO DE TEXTO PARA NOTEBOOK/DESKTOP */
+        /* AJUSTES PARA NOTEBOOK / DESKTOP */
         @media (min-width: 1024px) {
             .credits {
-                width: 70%; /* Texto mais centralizado e elegante em telas grandes */
+                width: 70%;
                 left: 15%;
+            }
+            p {
+                /* Letra grande e imponente para o Notebook */
+                font-size: clamp(1.5rem, 3vw, 3rem); 
+                line-height: 1.6;
+                margin-bottom: 2.5rem;
             }
         }
 
+        /* AJUSTES PARA CELULAR */
+        @media (max-width: 768px) {
+            .credits {
+                /* No celular, o texto sobe ainda mais devagar (220s) */
+                /* Isso evita que a leitura fique "atropelada" em telas curtas */
+                animation: crawl 220s linear infinite;
+                width: 92%;
+                left: 4%;
+            }
+            .container {
+                perspective: 200px; /* Inclinação mais suave para telas pequenas */
+            }
+            p {
+                font-size: 1.2rem;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+                text-align: center; /* Melhora a estética em telas verticais */
+            }
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 2.2rem; }
+        }
+
+        /* CONFIGURAÇÃO DE TÍTULOS */
         .titles {
             text-align: center;
             margin-bottom: 80px;
         }
 
         h1 {
-            /* Tamanho fluido: min 1.8rem, ideal 6vw, max 3.5rem */
-            font-size: clamp(1.8rem, 6vw, 3.5rem);
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
             margin-bottom: 20px;
             font-weight: 400;
         }
 
         h2 {
-            /* Título principal grande para Notebook */
-            font-size: clamp(2.5rem, 10vw, 6rem);
+            font-size: clamp(2rem, 8vw, 5.5rem);
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 40px;
-        }
-
-        p {
-            /* Letra do corpo aumentada para Notebook (Max 3rem) */
-            font-size: clamp(1.3rem, 4.5vw, 3rem); 
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            font-weight: 600;
         }
 
         /* ANIMAÇÃO */
@@ -100,19 +118,8 @@
                 transform: rotateX(25deg) translateY(0);
             }
             100% {
-                /* Sobe bastante para garantir que textos longos terminem o percurso */
-                transform: rotateX(25deg) translateY(-6000px);
-            }
-        }
-
-        /* AJUSTES PARA CELULAR */
-        @media (max-width: 480px) {
-            .container {
-                perspective: 200px; /* Perspectiva mais curta para telas estreitas */
-            }
-            p {
-                line-height: 1.4;
-                text-align: center; /* Opcional: centralizar no mobile facilita leitura 3D */
+                /* Valor alto para garantir que o texto longo passe todo pelo horizonte */
+                transform: rotateX(25deg) translateY(-6500px);
             }
         }
     </style>
@@ -123,28 +130,26 @@
         <div class="credits">
             <div class="titles">
                 <h1>Episódio X</h1>
-                <h2>O CÓDIGO FINAL</h2>
+                <h2>A ERA DO CÓDIGO</h2>
             </div>
             
             <p>
-                Há muito tempo, em uma galáxia muito, muito distante... um desenvolvedor buscava o código perfeito para impressionar seus usuários.
+                É um período de grandes descobertas. Os desenvolvedores rebeldes, vindos de todos os cantos do terminal, uniram forças para criar interfaces que desafiam a gravidade.
             </p>
 
             <p>
-                Após muitas batalhas contra bugs e telas de erro, a luz do CSS puro surgiu no horizonte, trazendo a esperança de uma interface cinematográfica e responsiva.
+                Enquanto o Império dos Bugs tenta dominar o console, uma nova esperança surge na forma de folhas de estilo otimizadas e fontes responsivas. Nada pode parar o avanço da legibilidade.
             </p>
 
             <p>
-                Agora, com as fontes ajustadas para telas de notebook e uma velocidade de cruzeiro que permite a leitura até dos mais apressados, a paz reina no front-end.
+                Neste momento crucial, as letras sobem ao infinito, cruzando o horizonte negro do navegador, levando a mensagem de que o design e a performance podem, sim, coexistir em harmonia.
             </p>
 
             <p>
-                Mas a jornada não termina aqui. Novos desafios aguardam na próxima atualização do sistema...
+                A jornada continua, e o próximo commit decidirá o destino de todos os usuários da galáxia...
             </p>
         </div>
     </div>
 
 </body>
 </html>
-
-

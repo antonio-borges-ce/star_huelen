@@ -1,83 +1,108 @@
-/* CAMADA GERAL DO CÉU */
-.stars,
-.stars2,
-.stars3 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+/* RESET E FUNDO DO CÉU */
+body {
+    background-color: #000;
+    margin: 0;
+    overflow: hidden;
 }
 
-/* ESTRELAS PEQUENAS */
+/* CAMADA DA NÉVOA ESPACIAL (NEBULOSA) */
+.nebula {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -3; /* Fundo do fundo */
+    pointer-events: none;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(0, 50, 100, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(60, 0, 100, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(20, 40, 80, 0.1) 0%, transparent 60%);
+    filter: blur(80px);
+    animation: nebulaDrift 80s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaDrift {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    100% { transform: translate(-5%, -5%) rotate(2deg) scale(1.1); }
+}
+
+/* CONFIGURAÇÃO GERAL DAS ESTRELAS */
+.stars, .stars2, .stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* GRUPO 1: Pequenas e Numerosas (Cores variadas) */
 .stars {
-  width: 1px;
-  height: 1px;
-  background: transparent;
-  box-shadow:
-    100px 50px white,
-    200px 150px white,
-    300px 80px white,
-    400px 200px white,
-    500px 120px white,
-    600px 250px white,
-    700px 180px white,
-    800px 300px white,
-    900px 90px white,
-    1000px 210px white,
-    1100px 160px white,
-    1200px 320px white,
-    1300px 70px white,
-    1400px 260px white,
-    1500px 140px white;
-
-  animation: twinkle 3s infinite alternate;
+    animation: fadeAndRelocate 18s ease-in-out infinite;
 }
 
-/* ESTRELAS MÉDIAS */
+/* GRUPO 2: Médias (Tons Azulados) */
 .stars2 {
-  width: 2px;
-  height: 2px;
-  background: transparent;
-  box-shadow:
-    150px 100px white,
-    350px 220px white,
-    550px 180px white,
-    750px 260px white,
-    950px 120px white,
-    1150px 300px white,
-    1350px 200px white,
-    1550px 280px white;
-
-  animation: twinkle 5s infinite alternate;
+    animation: fadeAndRelocate 26s ease-in-out infinite 6s;
 }
 
-/* ESTRELAS GRANDES */
+/* GRUPO 3: Maiores (Tons Amarelados e Brancos) */
 .stars3 {
-  width: 3px;
-  height: 3px;
-  background: transparent;
-  box-shadow:
-    250px 150px white,
-    650px 230px white,
-    1050px 190px white,
-    1450px 260px white;
-
-  animation: twinkle 7s infinite alternate;
+    animation: fadeAndRelocate 34s ease-in-out infinite 12s;
 }
 
-/* ANIMAÇÃO DE BRILHO */
-@keyframes twinkle {
-  0% {
-    opacity: 0.3;
-  }
+/* ANIMAÇÃO PRINCIPAL: APARECER, BRILHAR, SUMIR E MUDAR DE LUGAR */
+@keyframes fadeAndRelocate {
+    /* POSIÇÃO 1: As estrelas "nascem" aqui */
+    0% { opacity: 0; }
+    15% { 
+        opacity: 1; 
+        background-image: 
+            radial-gradient(1px 1px at 12% 15%, #fff, transparent),      /* Branca */
+            radial-gradient(1.2px 1.2px at 28% 38%, #a5f3ff, transparent), /* Azulada */
+            radial-gradient(1.5px 1.5px at 55% 22%, #fff9c4, transparent), /* Amarelada */
+            radial-gradient(1.1px 1.1px at 82% 18%, #fff, transparent),
+            radial-gradient(1.3px 1.3px at 92% 48%, #e1f5fe, transparent), /* Azulada */
+            radial-gradient(1px 1px at 8% 88%, #fffde7, transparent),      /* Amarelada */
+            radial-gradient(1.5px 1.5px at 38% 72%, #fff, transparent),
+            radial-gradient(1.2px 1.2px at 68% 92%, #b3e5fc, transparent), /* Azulada */
+            radial-gradient(1.1px 1.1px at 88% 68%, #fff, transparent);
+    }
+    35% { opacity: 0; } /* Apagam totalmente */
 
-  50% {
-    opacity: 1;
-  }
+    /* INTERVALO ESCURO: Momento da troca silenciosa */
+    40% { opacity: 0; }
 
-  100% {
-    opacity: 0.4;
-  }
+    /* POSIÇÃO 2: Nascem em novos lugares */
+    50% { 
+        opacity: 1; 
+        background-image: 
+            radial-gradient(1.2px 1.2px at 18% 58%, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 48% 18%, #fff9c4, transparent), /* Amarelada */
+            radial-gradient(1.1px 1.1px at 78% 38%, #e0f7fa, transparent), /* Azulada */
+            radial-gradient(1.3px 1.3px at 28% 82%, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 58% 52%, #fffde7, transparent), /* Amarelada */
+            radial-gradient(1.2px 1.2px at 98% 22%, #81d4fa, transparent), /* Azulada */
+            radial-gradient(1.5px 1.5px at 42% 98%, #fff, transparent),
+            radial-gradient(1.1px 1.1px at 72% 8%, #fff9c4, transparent);  /* Amarelada */
+    }
+    75% { opacity: 0; }
+
+    /* INTERVALO ESCURO */
+    80% { opacity: 0; }
+
+    /* POSIÇÃO 3: Último mapa do ciclo */
+    85% {
+        opacity: 0.8;
+        background-image: 
+            radial-gradient(1.2px 1.2px at 52% 52%, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 24% 24%, #b3e5fc, transparent), /* Azulada */
+            radial-gradient(1.3px 1.3px at 75% 75%, #fffde7, transparent), /* Amarelada */
+            radial-gradient(1.1px 1.1px at 15% 85%, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 85% 15%, #81d4fa, transparent), /* Azulada */
+            radial-gradient(1.4px 1.4px at 35% 45%, #fff9c4, transparent);  /* Amarelada */
+    }
+    100% { opacity: 0; }
 }

@@ -1,148 +1,83 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars Intro</title>
-    <style>
-        /* RESET GERAL */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* CAMADA GERAL DO CÉU */
+.stars,
+.stars2,
+.stars3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
-        /* CORPO DA PÁGINA */
-        body {
-            background: #000;
-            color: #ffd900;
-            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
+/* ESTRELAS PEQUENAS */
+.stars {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow:
+    100px 50px white,
+    200px 150px white,
+    300px 80px white,
+    400px 200px white,
+    500px 120px white,
+    600px 250px white,
+    700px 180px white,
+    800px 300px white,
+    900px 90px white,
+    1000px 210px white,
+    1100px 160px white,
+    1200px 320px white,
+    1300px 70px white,
+    1400px 260px white,
+    1500px 140px white;
 
-        /* MÁSCARA DE SUMIÇO (HORIZONTE) */
-        /* Cria o efeito do texto "evaporando" no topo antes de tocar na borda */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 40%; 
-            background: linear-gradient(to bottom, black 25%, transparent 100%);
-            z-index: 10;
-            pointer-events: none;
-        }
+  animation: twinkle 3s infinite alternate;
+}
 
-        /* CONTAINER COM PERSPECTIVA */
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            perspective: 300px; /* Profundidade acentuada para telas de notebook */
-            perspective-origin: 50% 100%;
-        }
+/* ESTRELAS MÉDIAS */
+.stars2 {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    150px 100px white,
+    350px 220px white,
+    550px 180px white,
+    750px 260px white,
+    950px 120px white,
+    1150px 300px white,
+    1350px 200px white,
+    1550px 280px white;
 
-        /* BLOCO DO TEXTO (O CRAWL) */
-        .credits {
-            position: absolute;
-            top: 100%;
-            width: 90%; /* Padrão mobile */
-            left: 5%;
-            max-width: 1100px;
-            text-align: justify;
-            /* VELOCIDADE: 140s para leitura lenta e confortável */
-            animation: crawl 140s linear infinite;
-            text-shadow: 0 0 8px rgba(255, 217, 0, 0.4); 
-        }
+  animation: twinkle 5s infinite alternate;
+}
 
-        /* CONFIGURAÇÃO DE TEXTO PARA NOTEBOOK/DESKTOP */
-        @media (min-width: 1024px) {
-            .credits {
-                width: 70%; /* Texto mais centralizado e elegante em telas grandes */
-                left: 15%;
-            }
-        }
+/* ESTRELAS GRANDES */
+.stars3 {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow:
+    250px 150px white,
+    650px 230px white,
+    1050px 190px white,
+    1450px 260px white;
 
-        .titles {
-            text-align: center;
-            margin-bottom: 80px;
-        }
+  animation: twinkle 7s infinite alternate;
+}
 
-        h1 {
-            /* Tamanho fluido: min 1.8rem, ideal 6vw, max 3.5rem */
-            font-size: clamp(1.8rem, 6vw, 3.5rem);
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
+/* ANIMAÇÃO DE BRILHO */
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+  }
 
-        h2 {
-            /* Título principal grande para Notebook */
-            font-size: clamp(2.5rem, 10vw, 6rem);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-        }
+  50% {
+    opacity: 1;
+  }
 
-        p {
-            /* Letra do corpo aumentada para Notebook (Max 3rem) */
-            font-size: clamp(1.3rem, 4.5vw, 3rem); 
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            font-weight: 600;
-        }
-
-        /* ANIMAÇÃO */
-        @keyframes crawl {
-            0% {
-                transform: rotateX(25deg) translateY(0);
-            }
-            100% {
-                /* Sobe bastante para garantir que textos longos terminem o percurso */
-                transform: rotateX(25deg) translateY(-6000px);
-            }
-        }
-
-        /* AJUSTES PARA CELULAR */
-        @media (max-width: 480px) {
-            .container {
-                perspective: 200px; /* Perspectiva mais curta para telas estreitas */
-            }
-            p {
-                line-height: 1.4;
-                text-align: center; /* Opcional: centralizar no mobile facilita leitura 3D */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="credits">
-            <div class="titles">
-                <h1>Episódio X</h1>
-                <h2>O CÓDIGO FINAL</h2>
-            </div>
-            
-            <p>
-                Há muito tempo, em uma galáxia muito, muito distante... um desenvolvedor buscava o código perfeito para impressionar seus usuários.
-            </p>
-
-            <p>
-                Após muitas batalhas contra bugs e telas de erro, a luz do CSS puro surgiu no horizonte, trazendo a esperança de uma interface cinematográfica e responsiva.
-            </p>
-
-            <p>
-                Agora, com as fontes ajustadas para telas de notebook e uma velocidade de cruzeiro que permite a leitura até dos mais apressados, a paz reina no front-end.
-            </p>
-
-            <p>
-                Mas a jornada não termina aqui. Novos desafios aguardam na próxima atualização do sistema...
-            </p>
-        </div>
-    </div>
-
-</body>
-</html>
+  100% {
+    opacity: 0.4;
+  }
+}

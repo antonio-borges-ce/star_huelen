@@ -1,4 +1,4 @@
-/* 1. CONFIGURAÇÕES GERAIS */
+/* 1. CONFIGURAÇÕES BASE */
 * {
     margin: 0;
     padding: 0;
@@ -6,34 +6,36 @@
 }
 
 body {
-    background: #000; /* Fundo sempre preto */
-    color: #ffd900; /* Amarelo Star Wars clássico */
+    background: #000;
+    color: #ffd900;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
-    overflow: hidden; /* Impede barras de rolagem lateral/vertical */
+    overflow: hidden;
     height: 100vh;
     width: 100vw;
 }
 
-/* 2. EFEITO DE SUMIÇO NO TOPO (MÁSCARA) */
+/* 2. MÁSCARA DE SUMIÇO */
 body::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 40%; 
-    background: linear-gradient(to bottom, black 25%, transparent 100%);
-    z-index: 10; /* Fica na frente do texto para fazê-lo "sumir" */
+    height: 30%; /* Diminuí para o texto aparecer maior mais cedo */
+    background: linear-gradient(to bottom, black 15%, transparent 100%);
+    z-index: 10;
     pointer-events: none;
 }
 
-/* 3. ESTRUTURA 3D */
+/* 3. ESTRUTURA 3D REFORMULADA PARA CELULAR */
 .container {
     position: relative;
     width: 100%;
     height: 100%;
-    perspective: 300px; /* Cria a profundidade */
-    perspective-origin: 50% 100%;
+    /* Aumentei a perspectiva para o texto não 'encolher' tanto no fundo */
+    perspective: 250px; 
+    /* O segredo: mudamos a origem para o texto não nascer tão longe */
+    perspective-origin: 50% 40%; 
     z-index: 5;
 }
 
@@ -42,77 +44,43 @@ body::before {
     top: 100%;
     width: 90%;
     left: 5%;
-    max-width: 1100px;
-    text-align: justify;
-    animation: crawl 150s linear infinite;
-    text-shadow: 0 0 10px rgba(255, 217, 0, 0.4); 
-}
-
-/* 4. AJUSTES PARA TELAS GRANDES (PC/NOTEBOOK) */
-@media (min-width: 1024px) {
-    .credits {
-        width: 70%;
-        left: 15%;
-    }
-    p {
-        font-size: 2.8rem; 
-        line-height: 1.6;
-        margin-bottom: 3.5rem;
-        font-weight: 600;
-    }
-    h1 { font-size: 3rem; }
-    h2 { font-size: 5.5rem; }
-}
-
-/* 5. AJUSTES PARA CELULAR (Foco em Legibilidade) */
-@media (max-width: 768px) {
-    .container {
-        perspective: 180px; /* Menos inclinação para a letra não achatar tanto */
-    }
-    
-    .credits {
-        animation: crawl 200s linear infinite; /* Mais lento para leitura confortável */
-        width: 94%;
-        left: 3%;
-    }
-
-    p {
-        font-size: 1.7rem; /* Fonte grande para telas pequenas */
-        line-height: 1.5;
-        margin-bottom: 2rem;
-        text-align: center; /* Centralizado evita buracos no texto 3D */
-        font-weight: 700; /* Negrito para destacar no fundo estrelado */
-    }
-
-    h1 { font-size: 1.8rem; }
-    h2 { font-size: 2.6rem; letter-spacing: 2px; }
-}
-
-/* 6. ESTILO DOS TÍTULOS */
-.titles {
     text-align: center;
-    margin-bottom: 120px;
+    /* Velocidade para o texto longo */
+    animation: crawl 190s linear infinite; 
+    text-shadow: 0 0 5px rgba(255, 217, 0, 0.6); 
 }
 
+/* 4. TEXTO GRANDE E LEGÍVEL */
 h1 {
-    font-weight: 400;
+    font-size: 1.6rem;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 h2 {
+    font-size: 2.2rem;
     text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 60px;
+    letter-spacing: 2px;
+    margin-bottom: 80px;
+    line-height: 1.2;
 }
 
-/* 7. A MÁGICA DO MOVIMENTO */
+p {
+    /* Fonte extra grande e com peso para leitura clara no celular */
+    font-size: 2.2rem; 
+    line-height: 1.4;
+    margin-bottom: 2.5rem;
+    font-weight: 800; /* Mais grosso para não 'sumir' */
+}
+
+/* 5. ANIMAÇÃO COM INCLINAÇÃO SUAVE */
 @keyframes crawl {
     0% {
-        transform: rotateX(25deg) translateY(0);
+        /* Ângulo menor (15deg) para a letra ficar mais de frente para o usuário */
+        transform: rotateX(15deg) translateY(0);
     }
     100% {
-        /* Valor ajustado para o texto longo da Huelen subir todo */
-        transform: rotateX(25deg) translateY(-9500px);
+        /* Valor ajustado para percorrer todo o texto da Huelen */
+        transform: rotateX(15deg) translateY(-11000px);
     }
 }

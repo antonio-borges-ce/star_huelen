@@ -1,4 +1,4 @@
-/* 1. RESET E BLOQUEIO DE MOVIMENTO */
+/* 1. RESET E BLOQUEIO DE MOVIMENTO (TRAVA A TELA) */
 * {
     margin: 0;
     padding: 0;
@@ -12,38 +12,16 @@ body {
     overflow: hidden;
     height: 100vh;
     width: 100vw;
-    position: fixed; /* Trava o fundo */
+    position: fixed; 
     
-    /* BLOQUEIA INTERAÇÃO DO DEDO */
+    /* Impede que a tela balance ou suba ao tocar com o dedo */
     touch-action: none; 
     user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* 2. NÉVOA ESPACIAL (Nebulosa) */
-.nebula {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    z-index: -3;
-    pointer-events: none;
-    background: 
-        radial-gradient(circle at 30% 40%, rgba(0, 80, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 60%, rgba(150, 0, 255, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(50, 50, 150, 0.1) 0%, transparent 60%);
-    filter: blur(80px);
-    animation: nebulaDrift 80s ease-in-out infinite alternate;
-}
-
-@keyframes nebulaDrift {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-5%, -5%) scale(1.1); }
-}
-
-/* 3. MÁSCARA DE SUMIÇO NO TOPO */
+/* 2. MÁSCARA DE SUMIÇO NO TOPO */
 body::before {
     content: "";
     position: fixed;
@@ -51,19 +29,18 @@ body::before {
     left: 0;
     width: 100%;
     height: 40%; 
-    background: linear-gradient(to bottom, black 25%, transparent 100%);
+    background: linear-gradient(to bottom, black 30%, transparent 100%);
     z-index: 10;
     pointer-events: none;
 }
 
-/* 4. ESTRUTURA 3D AJUSTADA PARA MOBILE */
+/* 3. ESTRUTURA 3D */
 .container {
     position: relative;
     width: 100%;
     height: 100%;
-    perspective: 350px; /* Perspectiva equilibrada */
-    perspective-origin: 50% 55%; /* Faz o texto nascer maior e mais perto */
-    touch-action: none;
+    perspective: 300px; 
+    perspective-origin: 50% 50%; /* Faz o texto nascer maior e mais de frente */
     z-index: 5;
 }
 
@@ -73,56 +50,57 @@ body::before {
     width: 90%;
     left: 5%;
     max-width: 900px;
-    text-align: justify; /* Justificado conforme pedido */
-    hyphens: auto;       /* Evita buracos no texto justificado */
+    text-align: justify;
+    hyphens: auto;
     -webkit-hyphens: auto;
     animation: crawl 180s linear infinite; 
-    text-shadow: 0 0 10px rgba(255, 217, 0, 0.6); 
+    text-shadow: 0 0 10px rgba(255, 217, 0, 0.7); 
 }
 
-/* 5. TEXTO E TÍTULOS */
+/* 4. TÍTULOS */
 .titles {
     text-align: center;
     margin-bottom: 80px;
 }
 
 h1 {
-    font-size: 2.2rem;
+    font-size: 2rem; /* Episódio XXX */
     margin-bottom: 15px;
     font-weight: 400;
 }
 
 h2 {
-    font-size: 3.2rem;
+    font-size: 3.5rem; /* Aumente aqui o Título Principal */
     text-transform: uppercase;
     letter-spacing: 3px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     line-height: 1.1;
 }
 
+/* 5. TEXTO (ONDE VOCÊ AUMENTA A LETRA) */
 p {
-    font-size: 2rem; /* Fonte grande para o celular */
+    font-size: 2.0rem; /* << AJUSTE AQUI PARA O TEXTO FICAR MAIOR NO CELULAR */
     line-height: 1.4;
-    margin-bottom: 2.5rem;
-    font-weight: bold; /* Letras sólidas para não ficarem "transparentes" */
+    margin-bottom: 2.8rem;
+    font-weight: bold; 
 }
 
 /* 6. ANIMAÇÃO DE SUBIDA */
 @keyframes crawl {
     0% {
-        transform: rotateX(18deg) translateY(0); /* Ângulo suave para legibilidade */
+        transform: rotateX(15deg) translateY(0); /* Ângulo menor para ser mais legível */
     }
     100% {
-        transform: rotateX(18deg) translateY(-9500px); /* Sobe o texto longo */
+        transform: rotateX(15deg) translateY(-10000px); 
     }
 }
 
-/* 7. AJUSTES ADICIONAIS PARA CELULARES MUITO PEQUENOS */
+/* 7. AJUSTE FINO PARA TELAS PEQUENAS */
 @media (max-width: 480px) {
-    p {
-        font-size: 1.7rem; /* Reduz ligeiramente apenas se a tela for minúscula */
+    .container {
+        perspective: 200px;
     }
-    h2 {
-        font-size: 2.5rem;
+    p {
+        font-size: 1.8rem; /* Caso queira um ajuste automático para telas mini */
     }
 }

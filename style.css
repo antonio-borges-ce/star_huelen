@@ -1,4 +1,4 @@
-/* 1. RESET E BLOQUEIO DE MOVIMENTO (TRAVA A TELA) */
+/* 1. RESET E BLOQUEIO DE MOVIMENTO */
 * {
     margin: 0;
     padding: 0;
@@ -14,14 +14,14 @@ body {
     width: 100vw;
     position: fixed; 
     
-    /* Impede que a tela balance ou suba ao tocar com o dedo */
+    /* Trava a tela para o dedo não mover o fundo */
     touch-action: none; 
     user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* 2. MÁSCARA DE SUMIÇO NO TOPO */
+/* 2. MÁSCARA DE SUMIÇO (HORIZONTE) */
 body::before {
     content: "";
     position: fixed;
@@ -40,7 +40,7 @@ body::before {
     width: 100%;
     height: 100%;
     perspective: 300px; 
-    perspective-origin: 50% 50%; /* Faz o texto nascer maior e mais de frente */
+    perspective-origin: 50% 50%; 
     z-index: 5;
 }
 
@@ -50,9 +50,10 @@ body::before {
     width: 90%;
     left: 5%;
     max-width: 900px;
-    text-align: justify;
-    hyphens: auto;
-    -webkit-hyphens: auto;
+    
+    /* ALINHAMENTO AJUSTADO (SEM JUSTIFICADO) */
+    text-align: center; 
+    
     animation: crawl 180s linear infinite; 
     text-shadow: 0 0 10px rgba(255, 217, 0, 0.7); 
 }
@@ -64,43 +65,41 @@ body::before {
 }
 
 h1 {
-    font-size: 2rem; /* Episódio XXX */
+    font-size: 2rem; 
     margin-bottom: 15px;
     font-weight: 400;
 }
 
 h2 {
-    font-size: 3.5rem; /* Aumente aqui o Título Principal */
+    font-size: 3.5rem; 
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 60px;
     line-height: 1.1;
 }
 
-/* 5. TEXTO (ONDE VOCÊ AUMENTA A LETRA) */
+/* 5. TEXTO DA HOMENAGEM */
 p {
-    font-size: 2.0rem; /* << AJUSTE AQUI PARA O TEXTO FICAR MAIOR NO CELULAR */
-    line-height: 1.4;
-    margin-bottom: 2.8rem;
+    /* Aumente aqui se ainda achar pequeno no celular */
+    font-size: 2.2rem; 
+    line-height: 1.5;
+    margin-bottom: 3rem;
     font-weight: bold; 
 }
 
-/* 6. ANIMAÇÃO DE SUBIDA */
+/* 6. ANIMAÇÃO */
 @keyframes crawl {
     0% {
-        transform: rotateX(15deg) translateY(0); /* Ângulo menor para ser mais legível */
+        transform: rotateX(15deg) translateY(0);
     }
     100% {
-        transform: rotateX(15deg) translateY(-10000px); 
+        transform: rotateX(15deg) translateY(-10500px); 
     }
 }
 
-/* 7. AJUSTE FINO PARA TELAS PEQUENAS */
+/* AJUSTE PARA TELAS MUITO PEQUENAS */
 @media (max-width: 480px) {
-    .container {
-        perspective: 200px;
-    }
     p {
-        font-size: 1.8rem; /* Caso queira um ajuste automático para telas mini */
+        font-size: 1.9rem; 
     }
 }

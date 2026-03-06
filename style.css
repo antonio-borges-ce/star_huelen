@@ -1,4 +1,4 @@
-/* 1. CONFIGURAÇÕES BASE */
+/* 1. AJUSTE DE BASE */
 * {
     margin: 0;
     padding: 0;
@@ -14,28 +14,28 @@ body {
     width: 100vw;
 }
 
-/* 2. MÁSCARA DE SUMIÇO */
+/* 2. MÁSCARA DO TOPO (Para o texto sumir suavemente) */
 body::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 30%; /* Diminuí para o texto aparecer maior mais cedo */
-    background: linear-gradient(to bottom, black 15%, transparent 100%);
+    height: 30%; 
+    background: linear-gradient(to bottom, black 20%, transparent 100%);
     z-index: 10;
     pointer-events: none;
 }
 
-/* 3. ESTRUTURA 3D REFORMULADA PARA CELULAR */
+/* 3. CONTAINER - O SEGREDO ESTÁ AQUI */
 .container {
     position: relative;
     width: 100%;
     height: 100%;
-    /* Aumentei a perspectiva para o texto não 'encolher' tanto no fundo */
-    perspective: 250px; 
-    /* O segredo: mudamos a origem para o texto não nascer tão longe */
-    perspective-origin: 50% 40%; 
+    /* Aumentamos muito a perspectiva para o texto não 'encolher' */
+    perspective: 400px; 
+    /* Mudamos o foco para o centro da tela para o texto nascer GRANDE */
+    perspective-origin: 50% 30%; 
     z-index: 5;
 }
 
@@ -44,43 +44,43 @@ body::before {
     top: 100%;
     width: 90%;
     left: 5%;
-    text-align: center;
-    /* Velocidade para o texto longo */
-    animation: crawl 190s linear infinite; 
-    text-shadow: 0 0 5px rgba(255, 217, 0, 0.6); 
+    text-align: center; /* Centralizado é melhor para ler no celular */
+    animation: crawl 180s linear infinite; 
+    text-shadow: 0 0 10px rgba(255, 217, 0, 0.6); 
 }
 
-/* 4. TEXTO GRANDE E LEGÍVEL */
+/* 4. TEXTO GRANDE E LEGÍVEL (Foco total no Mobile) */
 h1 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 h2 {
-    font-size: 2.2rem;
+    font-size: 3.2rem; /* Título bem grande e imponente */
     text-transform: uppercase;
     letter-spacing: 2px;
+    line-height: 1.1;
     margin-bottom: 80px;
-    line-height: 1.2;
 }
 
 p {
-    /* Fonte extra grande e com peso para leitura clara no celular */
-    font-size: 2.2rem; 
-    line-height: 1.4;
-    margin-bottom: 2.5rem;
-    font-weight: 800; /* Mais grosso para não 'sumir' */
+    /* Fonte enorme para ocupar a tela e ser legível */
+    font-size: 2.8rem; 
+    line-height: 1.3;
+    margin-bottom: 3.5rem;
+    font-weight: 900; /* Peso máximo para leitura clara */
+    color: #ffd900;
 }
 
-/* 5. ANIMAÇÃO COM INCLINAÇÃO SUAVE */
+/* 5. ANIMAÇÃO SUAVE */
 @keyframes crawl {
     0% {
-        /* Ângulo menor (15deg) para a letra ficar mais de frente para o usuário */
-        transform: rotateX(15deg) translateY(0);
+        /* Ângulo quase reto (10 graus) para não achatar a letra */
+        transform: rotateX(10deg) translateY(0);
     }
     100% {
-        /* Valor ajustado para percorrer todo o texto da Huelen */
-        transform: rotateX(15deg) translateY(-11000px);
+        /* Valor para percorrer o texto longo da Huelen */
+        transform: rotateX(10deg) translateY(-12000px);
     }
 }

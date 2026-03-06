@@ -1,155 +1,118 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars Intro - Versão Final</title>
-    <style>
-        /* RESET GERAL */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* 1. CONFIGURAÇÕES GERAIS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* CORPO DA PÁGINA */
-        body {
-            background: #000;
-            color: #ffd900;
-            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
+body {
+    background: #000; /* Fundo sempre preto */
+    color: #ffd900; /* Amarelo Star Wars clássico */
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    overflow: hidden; /* Impede barras de rolagem lateral/vertical */
+    height: 100vh;
+    width: 100vw;
+}
 
-        /* MÁSCARA DE SUMIÇO NO HORIZONTE */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 45%; 
-            background: linear-gradient(to bottom, black 30%, transparent 100%);
-            z-index: 10;
-            pointer-events: none;
-        }
+/* 2. EFEITO DE SUMIÇO NO TOPO (MÁSCARA) */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%; 
+    background: linear-gradient(to bottom, black 25%, transparent 100%);
+    z-index: 10; /* Fica na frente do texto para fazê-lo "sumir" */
+    pointer-events: none;
+}
 
-        /* CONTAINER COM PERSPECTIVA */
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            perspective: 300px;
-            perspective-origin: 50% 100%;
-        }
+/* 3. ESTRUTURA 3D */
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 300px; /* Cria a profundidade */
+    perspective-origin: 50% 100%;
+    z-index: 5;
+}
 
-        /* BLOCO DO TEXTO (O CRAWL) */
-        .credits {
-            position: absolute;
-            top: 100%;
-            width: 90%;
-            left: 5%;
-            max-width: 1100px;
-            text-align: justify;
-            /* VELOCIDADE PADRÃO (Notebook/Desktop) */
-            animation: crawl 160s linear infinite;
-            text-shadow: 0 0 10px rgba(255, 217, 0, 0.4); 
-        }
+.credits {
+    position: absolute;
+    top: 100%;
+    width: 90%;
+    left: 5%;
+    max-width: 1100px;
+    text-align: justify;
+    animation: crawl 150s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 217, 0, 0.4); 
+}
 
-        /* AJUSTES PARA NOTEBOOK / DESKTOP */
-        @media (min-width: 1024px) {
-            .credits {
-                width: 70%;
-                left: 15%;
-            }
-            p {
-                /* Letra grande e imponente para o Notebook */
-                font-size: clamp(1.5rem, 3vw, 3rem); 
-                line-height: 1.6;
-                margin-bottom: 2.5rem;
-            }
-        }
+/* 4. AJUSTES PARA TELAS GRANDES (PC/NOTEBOOK) */
+@media (min-width: 1024px) {
+    .credits {
+        width: 70%;
+        left: 15%;
+    }
+    p {
+        font-size: 2.8rem; 
+        line-height: 1.6;
+        margin-bottom: 3.5rem;
+        font-weight: 600;
+    }
+    h1 { font-size: 3rem; }
+    h2 { font-size: 5.5rem; }
+}
 
-        /* AJUSTES PARA CELULAR */
-        @media (max-width: 768px) {
-            .credits {
-                /* No celular, o texto sobe ainda mais devagar (220s) */
-                /* Isso evita que a leitura fique "atropelada" em telas curtas */
-                animation: crawl 220s linear infinite;
-                width: 92%;
-                left: 4%;
-            }
-            .container {
-                perspective: 200px; /* Inclinação mais suave para telas pequenas */
-            }
-            p {
-                font-size: 1.2rem;
-                line-height: 1.5;
-                margin-bottom: 1.5rem;
-                text-align: center; /* Melhora a estética em telas verticais */
-            }
-            h1 { font-size: 1.5rem; }
-            h2 { font-size: 2.2rem; }
-        }
+/* 5. AJUSTES PARA CELULAR (Foco em Legibilidade) */
+@media (max-width: 768px) {
+    .container {
+        perspective: 180px; /* Menos inclinação para a letra não achatar tanto */
+    }
+    
+    .credits {
+        animation: crawl 200s linear infinite; /* Mais lento para leitura confortável */
+        width: 94%;
+        left: 3%;
+    }
 
-        /* CONFIGURAÇÃO DE TÍTULOS */
-        .titles {
-            text-align: center;
-            margin-bottom: 80px;
-        }
+    p {
+        font-size: 1.7rem; /* Fonte grande para telas pequenas */
+        line-height: 1.5;
+        margin-bottom: 2rem;
+        text-align: center; /* Centralizado evita buracos no texto 3D */
+        font-weight: 700; /* Negrito para destacar no fundo estrelado */
+    }
 
-        h1 {
-            font-size: clamp(1.5rem, 5vw, 3.5rem);
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 2.6rem; letter-spacing: 2px; }
+}
 
-        h2 {
-            font-size: clamp(2rem, 8vw, 5.5rem);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-        }
+/* 6. ESTILO DOS TÍTULOS */
+.titles {
+    text-align: center;
+    margin-bottom: 120px;
+}
 
-        /* ANIMAÇÃO */
-        @keyframes crawl {
-            0% {
-                transform: rotateX(25deg) translateY(0);
-            }
-            100% {
-                /* Valor alto para garantir que o texto longo passe todo pelo horizonte */
-                transform: rotateX(25deg) translateY(-6500px);
-            }
-        }
-    </style>
-</head>
-<body>
+h1 {
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
 
-    <div class="container">
-        <div class="credits">
-            <div class="titles">
-                <h1>Episódio X</h1>
-                <h2>A ERA DO CÓDIGO</h2>
-            </div>
-            
-            <p>
-                É um período de grandes descobertas. Os desenvolvedores rebeldes, vindos de todos os cantos do terminal, uniram forças para criar interfaces que desafiam a gravidade.
-            </p>
+h2 {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 60px;
+}
 
-            <p>
-                Enquanto o Império dos Bugs tenta dominar o console, uma nova esperança surge na forma de folhas de estilo otimizadas e fontes responsivas. Nada pode parar o avanço da legibilidade.
-            </p>
-
-            <p>
-                Neste momento crucial, as letras sobem ao infinito, cruzando o horizonte negro do navegador, levando a mensagem de que o design e a performance podem, sim, coexistir em harmonia.
-            </p>
-
-            <p>
-                A jornada continua, e o próximo commit decidirá o destino de todos os usuários da galáxia...
-            </p>
-        </div>
-    </div>
-
-</body>
-</html>
+/* 7. A MÁGICA DO MOVIMENTO */
+@keyframes crawl {
+    0% {
+        transform: rotateX(25deg) translateY(0);
+    }
+    100% {
+        /* Valor ajustado para o texto longo da Huelen subir todo */
+        transform: rotateX(25deg) translateY(-9500px);
+    }
+}

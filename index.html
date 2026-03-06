@@ -10,17 +10,22 @@
   </head>
 
   <body>
-    <audio id="starwarsAudio" src=""Tema Star Wars.mp3" preload="auto"></audio>
+    <audio id="starwarsAudio" preload="auto">
+        <source src="theme Star Wars.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
 
-    <div id="introOverlay">
-        <button id="startButton" onclick="iniciarSaga()">INICIAR HOMENAGEM</button>
+    <div id="introOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:black; display:flex; justify-content:center; align-items:center; z-index:1000;">
+        <button id="startButton" onclick="iniciarSaga()" style="padding:15px 30px; background:transparent; color:#ffd900; border:2px solid #ffd900; font-family:sans-serif; font-size:1.2rem; cursor:pointer; text-transform:uppercase; letter-spacing:2px;">
+            Iniciar Homenagem
+        </button>
     </div>
 
     <div class="stars"></div>
     <div class="stars2"></div>
     <div class="stars3"></div>
 
-    <div class="container" id="mainContainer" style="visibility: hidden;">
+    <div class="container" id="mainContainer" style="display: none;">
       <div class="credits">
         <div class="titles">
           <h1>Episódio XXXIV</h1>
@@ -50,16 +55,18 @@
         const container = document.getElementById('mainContainer');
         const overlay = document.getElementById('introOverlay');
 
-        // Toca o áudio
-        audio.play();
+        // Tenta tocar o áudio. Como tem 13MB, pode levar 1 ou 2 segundos.
+        audio.play().then(() => {
+            console.log("Som iniciado com sucesso.");
+        }).catch(error => {
+            console.error("Erro ao tocar áudio:", error);
+            // Se o arquivo falhar, ainda mostramos o texto para não estragar a surpresa.
+        });
 
-        // Esconde o botão e mostra o texto
+        // Esconde o botão e mostra o texto subindo
         overlay.style.display = 'none';
-        container.style.visibility = 'visible';
+        container.style.display = 'block';
       }
     </script>
   </body>
 </html>
-
-
-

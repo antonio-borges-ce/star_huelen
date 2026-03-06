@@ -16,101 +16,60 @@ body {
 
 /* CONTAINER PRINCIPAL */
 .container {
-  position: fixed;
+  position: relative; /* Mudado para relative para melhor controle */
   width: 100%;
   height: 100%;
-  /* Aumentei a perspectiva para a letra não achatar tanto no celular */
-  perspective: 350px; 
-  /* Subi a origem para 50% para o texto nascer maior e mais perto */
-  perspective-origin: 50% 50%;
-  display: flex;
-  justify-content: center;
+  perspective: 400px; /* Reduzi um pouco para dar mais "profundidade" */
+  perspective-origin: 50% 100%;
 }
 
 /* BLOCO DO TEXTO */
 .credits {
   position: absolute;
   top: 100%; /* Começa fora da tela por baixo */
-  width: 85%;
+  width: 80%;
+  left: 10%;
   max-width: 900px;
-  text-align: justify; /* Justificado conforme pedido */
-  
-  /* Melhora o justificado no celular: */
-  hyphens: auto; 
-  word-break: break-word; 
-
-  /* Tempo aumentado: o texto da Huelen é longo e precisa de tempo para ser lido */
-  animation: crawl 120s linear forwards;
-}
-
-/* TÍTULOS */
-.titles {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-h1 {
-  font-size: 2.8rem;
-  margin-bottom: 15px;
-}
-
-h2 {
-  font-size: 3.5rem;
-  text-transform: uppercase;
-  line-height: 1.1;
-}
-
-/* PARÁGRAFOS */
-p {
-  /* Fonte aumentada para garantir leitura no celular */
-  font-size: 2.2rem; 
-  line-height: 1.4;
-  margin-bottom: 30px;
-  font-weight: bold; /* Negrito ajuda muito na legibilidade 3D */
+  text-align: justify;
+  /* VELOCIDADE: Aumentei para 120s para ficar mais lento */
+  animation: crawl 120s linear infinite; 
 }
 
 /* ANIMAÇÃO ESTILO STAR WARS */
 @keyframes crawl {
   0% {
-    /* Ângulo de 20 graus para equilíbrio entre efeito e leitura */
-    transform: rotateX(20deg) translateY(0);
+    transform: rotateX(25deg) translateY(0);
   }
-
   100% {
-    /* Aumentei o valor negativo para garantir que todo o texto suba */
-    transform: rotateX(20deg) translateY(-8000px);
+    /* Sobe o suficiente para garantir que todo o texto passe */
+    transform: rotateX(25deg) translateY(-4000px); 
   }
 }
 
-/* FADE NO TOPO (Efeito de sumir no horizonte) */
-body::after {
+/* EFEITO DE SUMIÇO NO HORIZONTE (MÁSCARA) */
+/* Isso faz as letras sumirem antes de chegarem ao topo físico da tela */
+body::before {
   content: "";
   position: fixed;
-  top: 0; /* Mudei para o topo para criar o efeito de "espaço profundo" */
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 40%;
-  background: linear-gradient(to bottom, black 20%, transparent 100%);
+  height: 50%; /* Cobre a metade superior da tela com um degradê */
+  background: linear-gradient(to bottom, black 30%, transparent 100%);
+  z-index: 2; /* Garante que fique na frente do texto */
   pointer-events: none;
-  z-index: 2;
 }
 
-/* RESPONSIVO PARA CELULAR - FOCO TOTAL */
+/* TÍTULOS E PARÁGRAFOS */
+.titles { text-align: center; margin-bottom: 50px; }
+h1 { font-size: 2.5rem; margin-bottom: 10px; }
+h2 { font-size: 4rem; text-transform: uppercase; }
+p { font-size: 1.8rem; line-height: 1.6; margin-bottom: 30px; }
+
+/* RESPONSIVO */
 @media (max-width: 768px) {
-  .credits {
-    width: 92%;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    font-size: 2.4rem;
-  }
-
-  p {
-    /* Tamanho ideal para o celular não ficar miúdo */
-    font-size: 1.8rem; 
-    line-height: 1.3;
-  }
+  .credits { width: 90%; left: 5%; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 2.2rem; }
+  p { font-size: 1.3rem; }
 }

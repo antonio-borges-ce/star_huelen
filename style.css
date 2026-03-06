@@ -21,7 +21,40 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* 2. MÁSCARA DE SUMIÇO (HORIZONTE) */
+/* 2. ESTILO DO BOTÃO DE INÍCIO (IMPORTANTE PARA O SOM) */
+#introOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#startButton {
+    padding: 15px 30px;
+    background: transparent;
+    color: #ffd900;
+    border: 2px solid #ffd900;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+#startButton:hover {
+    background: #ffd900;
+    color: black;
+    box-shadow: 0 0 20px #ffd900;
+}
+
+/* 3. MÁSCARA DE SUMIÇO (HORIZONTE NO TOPO) */
 body::before {
     content: "";
     position: fixed;
@@ -34,7 +67,7 @@ body::before {
     pointer-events: none;
 }
 
-/* 3. ESTRUTURA 3D */
+/* 4. ESTRUTURA 3D */
 .container {
     position: relative;
     width: 100%;
@@ -50,56 +83,57 @@ body::before {
     width: 90%;
     left: 5%;
     max-width: 900px;
-    
-    /* ALINHAMENTO AJUSTADO (SEM JUSTIFICADO) */
     text-align: center; 
-    
     animation: crawl 180s linear infinite; 
     text-shadow: 0 0 10px rgba(255, 217, 0, 0.7); 
 }
 
-/* 4. TÍTULOS */
+/* 5. TÍTULOS (AJUSTADOS PARA CELULAR) */
 .titles {
     text-align: center;
     margin-bottom: 80px;
 }
 
 h1 {
-    font-size: 3rem; 
-    margin-bottom: 25px;
+    font-size: 2.2rem; 
+    margin-bottom: 20px;
     font-weight: 400;
 }
 
 h2 {
-    font-size: 3.5rem; 
+    font-size: 3rem; 
     text-transform: uppercase;
     letter-spacing: 3px;
-    margin-bottom: 25px;
+    margin-bottom: 40px;
     line-height: 1.1;
 }
 
-/* 5. TEXTO DA HOMENAGEM */
+/* 6. TEXTO DA HOMENAGEM (FONTE AUMENTADA) */
 p {
-    /* Aumente aqui se ainda achar pequeno no celular */
-    font-size: 1.5rem; 
-    line-height: 1.15;
-    margin-bottom: 2rem;
+    /* Ajuste aqui o tamanho principal */
+    font-size: 2.3rem; 
+    line-height: 1.4; /* Aumentado para não embolar as letras grandes */
+    margin-bottom: 3rem;
     font-weight: bold; 
 }
 
-/* 6. ANIMAÇÃO */
+/* 7. ANIMAÇÃO */
 @keyframes crawl {
     0% {
         transform: rotateX(15deg) translateY(0);
     }
     100% {
-        transform: rotateX(15deg) translateY(-10500px); 
+        /* Valor alto para o texto longo subir todo */
+        transform: rotateX(15deg) translateY(-11000px); 
     }
 }
 
-/* AJUSTE PARA TELAS MUITO PEQUENAS */
+/* 8. AJUSTE PARA TELAS PEQUENAS (MOBILE FINAL) */
 @media (max-width: 480px) {
     p {
-        font-size: 1.9rem; 
+        font-size: 2.1rem; /* Tamanho robusto para celulares menores */
+    }
+    h2 {
+        font-size: 2.5rem;
     }
 }
